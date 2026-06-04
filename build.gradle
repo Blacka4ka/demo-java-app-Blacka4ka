@@ -28,7 +28,11 @@ dependencies {
 group = 'softserve.academy'
 version = '0.0.1-SNAPSHOT'
 description = 'simplecrud'
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
 
 publishing {
     publications {
