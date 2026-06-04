@@ -20,19 +20,17 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: 17
+          java-version: '17'
+          cache: gradle
 
-      - name: Cache Maven
-        uses: actions/cache@v5
-        with:
-          path: ~/.m2
-          key: maven-${{ hashFiles('**/pom.xml') }}
+      - name: Grant execute permission
+        run: chmod +x gradlew
 
       - name: Build project
-        run: mvn clean compile
+        run: ./gradlew clean build
 
-      - name: Run tests
-        run: mvn test
-
-      - name: Package jar
-        run: mvn package -DskipTests
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: jar
+          path: build/libs/*.jar
